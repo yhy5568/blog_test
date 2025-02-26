@@ -55,4 +55,17 @@ class PostController extends Controller
         $post->delete();
         return redirect()->route('posts.index');
     }
+
+    public function togglePostText(Request $request) 
+    {
+        // 예시로 세션을 사용하여 상태를 저장하고 토글함
+        $currentText = session('postText', 'Posts');
+        $newText = $currentText == 'Posts' ? 'zzzzz' : 'Posts';
+
+        // 상태값을 세션에 저장
+        session(['postText' => $newText]);
+
+        // 클라이언트로 응답 반환
+        return response()->json(['text' => $newText]);
+    }
 }
